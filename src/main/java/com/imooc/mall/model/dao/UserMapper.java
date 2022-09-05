@@ -1,6 +1,7 @@
 package com.imooc.mall.model.dao;
 
 import com.imooc.mall.model.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +17,7 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectByName(String username);
+
+
+    User selectLogin(@Param("username") String username, @Param("password") String password);
 }

@@ -9,6 +9,7 @@ import com.imooc.mall.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
 import java.security.NoSuchAlgorithmException;
 
 @Service
@@ -42,4 +43,30 @@ public class UserServiceImpl implements UserService {
             throw new ImoocMallException(ImoocMallExceptionEnum.INSERT_FAILED);
         }
     }
+    @Override
+    public User login(String username,String password) throws ImoocMallException {
+        String md5password = null;
+        try {
+            md5password = MD5Utils.getMD5Str(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        User user = userMapper.selectLogin(username, md5password);
+        if (user == null){
+            throw new ImoocMallException(ImoocMallExceptionEnum.WRONG_PASSWORD);
+        }
+        return user;
+    }
+    @Override
+    public void updateInformation(User user) throws ImoocMallException {
+        int updateCount = userMapper.updateByPrimaryKeySelective(user);
+        if (updateCount > 1) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+        }
+    }
+    @Override
+    public boolean checkAdminRole(User user) {
+        return user.getRole().equals(2);
+    }
+
 }

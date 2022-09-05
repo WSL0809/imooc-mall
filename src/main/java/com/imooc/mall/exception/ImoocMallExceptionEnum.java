@@ -6,6 +6,10 @@ public enum ImoocMallExceptionEnum {
     PASSWORD_TOO_SHORT(10003,"密码太短"),
     NAME_EXISTED(10004,"名字存在"),
     INSERT_FAILED(10005,"插入失败"),
+    WRONG_PASSWORD(10006,"密码错误"),
+    NEED_LOGIN(10007,"需要先登录"),
+    UPDATE_FAILED(10008,"更新失败"),
+    NEED_ADMIN(10009,"无管理员权限"),
     STSTEM_ERROR(20000,"系统异常");
 
     Integer code;
