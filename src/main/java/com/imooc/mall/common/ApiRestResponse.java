@@ -33,6 +33,7 @@ public class ApiRestResponse<T> {
         return response;
     }
 
+
     @Override
     public String toString() {
         return "ApiRestResponse{" +
@@ -44,6 +45,9 @@ public class ApiRestResponse<T> {
 
     public static <T> ApiRestResponse<T> error(ImoocMallExceptionEnum ex) {
         return new ApiRestResponse<>(ex.getCode(), ex.getMsg());
+    }
+    public static <T> ApiRestResponse<T> error(Integer code, String msg) {
+        return new ApiRestResponse<>(code, msg);
     }
 
     public Integer getStatus() {
